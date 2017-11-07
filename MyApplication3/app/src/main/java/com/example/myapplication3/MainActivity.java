@@ -46,15 +46,13 @@ public class MainActivity extends Activity {
 
 	private static final String SPP_UUID = "00001101-0000-1000-8000-00805F9B34FB";
 
-	private boolean isPause = false;
-
 	private List<Integer> mBuffer;
 
 	private static final String TAG = "MainActivity";
 	private BluetoothAdapter mBluetoothAdapter;
 	private ConnectThread mConnectThread;
 	public ConnectedThread mConnectedThread;
-	private Button mSendBtn,mHomeBtn,keyUp,keyDown,keyLeft,keyRight;
+	private Button holderBtn,cupBtn,mHomeBtn,keyUp,keyDown,keyLeft,keyRight,keyFront,keyBack;
 	private TextView mTextView;
 	private EditText mEditText;
 	private static final int MSG_NEW_DATA = 3;
@@ -63,33 +61,48 @@ public class MainActivity extends Activity {
 	private PopBroadcastReceiver popBroadcastReceiver = new PopBroadcastReceiver(){
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			switch (Parameter.pop) {
-				case Parameter.PAUSE:
-					if (isPause) {isPause = false;} else {isPause = true;}
-					break;
-				case Parameter.SCAN:
-					if (mConnectThread != null) {
-						mConnectThread.cancel();
-						mConnectThread = null;
-					}
-					Intent serverIntent = new Intent(context, DeviceListActivity.class);
-					startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
-					break;
 
-				case Parameter.SETTING:
-					byte[] tt = new byte[10];
-					for (int i = 0; i < 10; i++){
-						tt[i] = (byte)('a' + i);
-					}
-					mConnectedThread.write(tt);
-					break;
+			if (Parameter.isGetNewDate) {
+				Parameter.isGetNewDate = false;
+				byte[] tt = new byte[30];
+				for (int i = 0; i < 10; i++){
+					tt[i*3] = (byte)(Parameter.newDate);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
+				}
+				mConnectedThread.write(tt);
+			}else {
+				switch (Parameter.pop) {
+					case Parameter.PAUSE:
+						if (Parameter.isPause) {
+							Parameter.isPause = false;
+						} else {
+							Parameter.isPause = true;
+						}
+						break;
+					case Parameter.SCAN:
+						if (mConnectThread != null) {
+							mConnectThread.cancel();
+							mConnectThread = null;
+						}
+						Intent serverIntent = new Intent(context, DeviceListActivity.class);
+						startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
+						break;
 
-				case Parameter.ABOUT:
-					startActivity(new Intent(context, AboutActivity.class));
-					break;
-				case Parameter.EXIT:
-					finish();
-					break;
+					case Parameter.SETTING:
+						byte[] tt = new byte[10];
+						for (int i = 0; i < 10; i++) {
+							tt[i] = (byte) ('a' + i);
+						}
+						mConnectedThread.write(tt);
+						break;
+
+					case Parameter.ABOUT:
+						startActivity(new Intent(context, AboutActivity.class));
+						break;
+					case Parameter.EXIT:
+						finish();
+						break;
+				}
+				Parameter.pop = "";
 			}
 		}
 	};
@@ -105,8 +118,106 @@ public class MainActivity extends Activity {
 		mHomeBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				PopWindow popWindow = new PopWindow(MainActivity.this,isPause);
+				PopWindow popWindow = new PopWindow(MainActivity.this,Parameter.isPause);
 				popWindow.showPopupWindow(findViewById(R.id.btn_title_right));
+			}
+		});
+
+		//真空吸杯按键
+		cupBtn = (Button) findViewById(R.id.cup);
+		cupBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (Parameter.isCupOn) {
+
+					Parameter.isCupOn = false;
+					byte[] tt = new byte[30];
+					for (int i = 0; i < 10; i++){
+						tt[i*3] = (byte)(Parameter.CUP_ON);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
+					}
+					cupBtn.setText("真空吸杯开");
+					mConnectedThread.write(tt);
+				}else {
+					Parameter.isCupOn = true;
+					byte[] tt = new byte[30];
+					for (int i = 0; i < 10; i++){
+						tt[i*3] = (byte)(Parameter.CUP_OFF);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
+					}
+					cupBtn.setText("真空吸杯关");
+					mConnectedThread.write(tt);
+				}
+			}
+		});
+
+		//夹持器按键
+		holderBtn = (Button) findViewById(R.id.holder);
+		holderBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (Parameter.isHolderOn) {
+
+					Parameter.isHolderOn = false;
+					byte[] tt = new byte[30];
+					for (int i = 0; i < 10; i++){
+						tt[i*3] = (byte)(Parameter.HOLDER_ON);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
+					}
+					holderBtn.setText("夹持器打开");
+					mConnectedThread.write(tt);
+				}else {
+					Parameter.isHolderOn = true;
+					byte[] tt = new byte[30];
+					for (int i = 0; i < 10; i++){
+						tt[i*3] = (byte)(Parameter.HOLDER_OFF);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
+					}
+					holderBtn.setText("夹持器关闭");
+					mConnectedThread.write(tt);
+				}
+			}
+		});
+
+		//前按键
+		keyFront = (Button) findViewById(R.id.front);
+		keyFront.setOnLongClickListener(new View.OnLongClickListener() {@Override public boolean onLongClick(View view) {return false;}});
+		keyFront.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View view, MotionEvent motionEvent) {
+				if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+					byte[] tt = new byte[30];
+					for (int i = 0; i < 10; i++){
+						tt[i*3] = (byte)(Parameter.FRONT_KEY_DOWN);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
+					}
+					mConnectedThread.write(tt);
+				}else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
+					byte[] tt = new byte[30];
+					for (int i = 0; i < 10; i++){
+						tt[i*3] = (byte)(Parameter.FRONT_KEY_UP);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
+					}
+					mConnectedThread.write(tt);
+				}
+				return false;
+			}
+		});
+
+		//后按键
+		keyBack = (Button) findViewById(R.id.back);
+		keyBack.setOnLongClickListener(new View.OnLongClickListener() {@Override public boolean onLongClick(View view) {return false;}});
+		keyBack.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View view, MotionEvent motionEvent) {
+				if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+					byte[] tt = new byte[30];
+					for (int i = 0; i < 10; i++){
+						tt[i*3] = (byte)(Parameter.BACK_KEY_DOWN);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
+					}
+					mConnectedThread.write(tt);
+				}else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
+					byte[] tt = new byte[30];
+					for (int i = 0; i < 10; i++){
+						tt[i*3] = (byte)(Parameter.BACK_KEY_UP);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
+					}
+					mConnectedThread.write(tt);
+				}
+				return false;
 			}
 		});
 
@@ -119,7 +230,7 @@ public class MainActivity extends Activity {
 				if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
 					byte[] tt = new byte[30];
 					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.DOWN_KEY_DOWM);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
+						tt[i*3] = (byte)(Parameter.DOWN_KEY_DOWN);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
 					}
 					mConnectedThread.write(tt);
 					((TextView)findViewById(R.id.tv_down)).setText("下按键： 发送状态...  步长; 03");
@@ -169,7 +280,7 @@ public class MainActivity extends Activity {
 				if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
 					byte[] tt = new byte[30];
 					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.LEFT_KEY_DOWM);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
+						tt[i*3] = (byte)(Parameter.LEFT_KEY_DOWN);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
 					}
 					((TextView)findViewById(R.id.tv_left)).setText("左按键： 发送状态...  步长; 03");
 					mConnectedThread.write(tt);
@@ -194,7 +305,7 @@ public class MainActivity extends Activity {
 				if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
 					byte[] tt = new byte[30];
 					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.RIGHT_KEY_DOWM);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
+						tt[i*3] = (byte)(Parameter.RIGHT_KEY_DOWN);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
 					}
 					((TextView)findViewById(R.id.tv_right)).setText("右按键： 发送状态...  步长; 03");
 					mConnectedThread.write(tt);
@@ -209,9 +320,6 @@ public class MainActivity extends Activity {
 				return false;
 			}
 		});
-
-//		mSendBtn = (Button) findViewById(R.id.sendBtn);
-//		mSendBtn.setOnClickListener(this);
 
 		mTextView = (TextView) findViewById(R.id.mTextView);
 		mEditText = (EditText) findViewById(R.id.mEditText);
@@ -251,7 +359,7 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 				case MSG_NEW_DATA:
-					if (isPause) {
+					if (Parameter.isPause) {
 						mBuffer.clear();
 						break;
 					} else {
@@ -473,11 +581,11 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case 0:
-			if (isPause) {
-				isPause = false;
+			if (Parameter.isPause) {
+				Parameter.isPause = false;
 				item.setTitle("Pause");
 			} else {
-				isPause = true;
+				Parameter.isPause = true;
 				item.setTitle("Resume");
 			}
 			Toast.makeText(MainActivity.this, "Menu 0", Toast.LENGTH_SHORT).show();

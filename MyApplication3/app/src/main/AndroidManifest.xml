@@ -44,9 +44,10 @@
         <receiver
             android:name="com.example.myapplication3.broadcast.PopBroadcastReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
 
-        <activity android:name="com.example.myapplication3.SlideActivity"></activity>
+        <activity android:name="com.example.myapplication3.SlideActivity" />
+        <activity android:name="com.example.myapplication3.AllKeyActivity"></activity>
     </application>
 
 </manifest>

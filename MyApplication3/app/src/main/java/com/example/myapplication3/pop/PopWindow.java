@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication3.AboutActivity;
+import com.example.myapplication3.AllKeyActivity;
 import com.example.myapplication3.DeviceListActivity;
 import com.example.myapplication3.MainActivity;
 import com.example.myapplication3.SlideActivity;
@@ -74,6 +75,16 @@ public class PopWindow extends PopupWindow {
                 context.sendBroadcast(new Intent("com.example.broadcast.POP_BROADCAST"));
                 Parameter.pop = Parameter.SCAN;
 //                context.startActivity(new Intent(conentView.getContext(), DeviceListActivity.class));
+                PopWindow.this.dismiss();
+            }
+        });
+
+        //allkey界面
+        conentView.findViewById(R.id.allkey).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                context.startActivity(new Intent(conentView.getContext(), AllKeyActivity.class));
                 PopWindow.this.dismiss();
             }
         });

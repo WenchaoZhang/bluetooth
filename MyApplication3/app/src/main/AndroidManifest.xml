@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.flyget.bluetoothhelper"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="22" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon_mdpi"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.example.myapplication3.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- android:theme="@android:style/Theme.Dialog" -->
+        <activity
+            android:name="com.example.myapplication3.DeviceListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/select_device" />
+        <activity
+            android:name="com.example.myapplication3.AboutActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="7bot Bluetooth Helper"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
+
+        <receiver
+            android:name="com.example.myapplication3.broadcast.PopBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
+        <activity android:name="com.example.myapplication3.SlideActivity"></activity>
+    </application>
+
+</manifest>

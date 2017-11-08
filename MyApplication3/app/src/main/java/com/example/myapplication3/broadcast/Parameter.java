@@ -20,6 +20,7 @@ public class Parameter {
     public  static Boolean isCupOn = true;
     public static final byte CUP_ON = (byte)'A';
     public static final byte CUP_OFF = (byte)'B';
+
     public  static Boolean isHolderOn = true;
     public static final byte HOLDER_ON = (byte)'C';
     public static final byte HOLDER_OFF = (byte)'D';
@@ -37,6 +38,18 @@ public class Parameter {
     public static final byte FRONT_KEY_DOWN = (byte)'j';
     public static final byte BACK_KEY_UP = (byte)'k';
     public static final byte BACK_KEY_DOWN = (byte)'l';
+    public static final byte THREEL_KEY_UP = (byte)'m';
+    public static final byte THREEL_KEY_DOWN = (byte)'n';
+    public static final byte THREER_KEY_UP = (byte)'o';
+    public static final byte THREER_KEY_DOWN = (byte)'p';
+    public static final byte FOURL_KEY_UP = (byte)'q';
+    public static final byte FOURL_KEY_DOWN = (byte)'r';
+    public static final byte FOURR_KEY_UP = (byte)'s';
+    public static final byte FOURR_KEY_DOWN = (byte)'t';
+    public static final byte FIVEL_KEY_UP = (byte)'u';
+    public static final byte FIVEL_KEY_DOWN = (byte)'v';
+    public static final byte FIVER_KEY_UP = (byte)'w';
+    public static final byte FIVER_KEY_DOWN = (byte)'x';
 
     //暂停状态
     public static Boolean isPause = false;

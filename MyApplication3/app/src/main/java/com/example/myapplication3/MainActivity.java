@@ -337,6 +337,21 @@ public class MainActivity extends Activity {
 
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (Parameter.isHolderOn) {
+			holderBtn.setText("夹持器关闭");
+		}else {
+			holderBtn.setText("夹持器打开");
+		}
+
+		if (Parameter.isCupOn) {
+			cupBtn.setText("真空吸杯关");
+		}else {
+			cupBtn.setText("真空吸杯开");
+		}
+	}
 
 	@Override
 	public void onStart() {

@@ -44,7 +44,9 @@ public class MainActivity extends Activity {
 	private static final int REQUEST_ENABLE_BT = 0;
 	private static final int REQUEST_CONNECT_DEVICE = 1;
 
-	private static final String SPP_UUID = "00001101-0000-1000-8000-00805F9B34FB";
+    private static final int sendNum = 1;
+
+    private static final String SPP_UUID = "00001101-0000-1000-8000-00805F9B34FB";
 
 	private List<Integer> mBuffer;
 
@@ -62,11 +64,30 @@ public class MainActivity extends Activity {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 
+			if (Parameter.isStepChange) {
+				Parameter.isStepChange = false;
+				byte[] tt = new byte[2*sendNum];
+				for (int i = 0; i < sendNum; i++){
+					tt[i*2] = (byte)(Parameter.STEP);tt[i*2+1] = (byte)(' ');
+				}
+				mConnectedThread.write(tt);
+			}
+
+			if (Parameter.isSliderChange) {
+				Parameter.isSliderChange = false;
+				int temp = Parameter.sliderValue;
+				Parameter.sliderValue = 0;
+				String tmps = String.valueOf(temp);
+				tmps = Parameter.whichSlider + "  " + tmps + "  ";
+				byte[] tt = tmps.getBytes();
+				mConnectedThread.write(tt);
+			}
+
 			if (Parameter.isGetNewDate) {
 				Parameter.isGetNewDate = false;
-				byte[] tt = new byte[30];
-				for (int i = 0; i < 10; i++){
-					tt[i*3] = (byte)(Parameter.newDate);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
+				byte[] tt = new byte[2*sendNum];
+				for (int i = 0; i < sendNum; i++){
+					tt[i*2] = (byte)(Parameter.newDate);tt[i*2+1] = (byte)(' ');
 				}
 				mConnectedThread.write(tt);
 			}else {
@@ -88,11 +109,11 @@ public class MainActivity extends Activity {
 						break;
 
 					case Parameter.SETTING:
-						byte[] tt = new byte[10];
-						for (int i = 0; i < 10; i++) {
-							tt[i] = (byte) ('a' + i);
-						}
-						mConnectedThread.write(tt);
+//						byte[] tt = new byte[10];
+//						for (int i = 0; i < 10; i++) {
+//							tt[i] = (byte) ('a' + i);
+//						}
+//						mConnectedThread.write(tt);
 						break;
 
 					case Parameter.ABOUT:
@@ -131,18 +152,18 @@ public class MainActivity extends Activity {
 				if (Parameter.isCupOn) {
 
 					Parameter.isCupOn = false;
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.CUP_ON);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
-					cupBtn.setText("真空吸杯开");
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.CUP_ON);tt[i*2+1] = (byte)(' ');
+                    }
+                    cupBtn.setText("真空吸杯开");
 					mConnectedThread.write(tt);
 				}else {
 					Parameter.isCupOn = true;
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.CUP_OFF);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.CUP_OFF);tt[i*2+1] = (byte)(' ');
+                    }
 					cupBtn.setText("真空吸杯关");
 					mConnectedThread.write(tt);
 				}
@@ -157,18 +178,22 @@ public class MainActivity extends Activity {
 				if (Parameter.isHolderOn) {
 
 					Parameter.isHolderOn = false;
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.HOLDER_ON);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.HOLDER_ON);tt[i*2+1] = (byte)(' ');
+                    }
+
 					holderBtn.setText("夹持器打开");
 					mConnectedThread.write(tt);
 				}else {
 					Parameter.isHolderOn = true;
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.HOLDER_OFF);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.HOLDER_OFF);tt[i*2+1] = (byte)(' ');
+                    }
+
 					holderBtn.setText("夹持器关闭");
 					mConnectedThread.write(tt);
 				}
@@ -182,16 +207,20 @@ public class MainActivity extends Activity {
 			@Override
 			public boolean onTouch(View view, MotionEvent motionEvent) {
 				if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.FRONT_KEY_DOWN);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.FRONT_KEY_DOWN);tt[i*2+1] = (byte)(' ');
+                    }
+
 					mConnectedThread.write(tt);
 				}else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.FRONT_KEY_UP);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.FRONT_KEY_UP);tt[i*2+1] = (byte)(' ');
+                    }
+
 					mConnectedThread.write(tt);
 				}
 				return false;
@@ -205,16 +234,20 @@ public class MainActivity extends Activity {
 			@Override
 			public boolean onTouch(View view, MotionEvent motionEvent) {
 				if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.BACK_KEY_DOWN);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.BACK_KEY_DOWN);tt[i*2+1] = (byte)(' ');
+                    }
+
 					mConnectedThread.write(tt);
 				}else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.BACK_KEY_UP);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.BACK_KEY_UP);tt[i*2+1] = (byte)(' ');
+                    }
+
 					mConnectedThread.write(tt);
 				}
 				return false;
@@ -228,17 +261,21 @@ public class MainActivity extends Activity {
 			@Override
 			public boolean onTouch(View view, MotionEvent motionEvent) {
 				if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.DOWN_KEY_DOWN);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.DOWN_KEY_DOWN);tt[i*2+1] = (byte)(' ');
+                    }
+
 					mConnectedThread.write(tt);
 					((TextView)findViewById(R.id.tv_down)).setText("下按键： 发送状态...  步长; 03");
 				}else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.DOWN_KEY_UP);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.DOWN_KEY_UP);tt[i*2+1] = (byte)(' ');
+                    }
+
 					((TextView)findViewById(R.id.tv_down)).setText("下按键： 停止状态...  步长; 03");
 					mConnectedThread.write(tt);
 				}
@@ -253,17 +290,21 @@ public class MainActivity extends Activity {
 			@Override
 			public boolean onTouch(View view, MotionEvent motionEvent) {
 				if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.UP_KEY_DOWN);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.UP_KEY_DOWN);tt[i*2+1] = (byte)(' ');
+                    }
+
 					((TextView)findViewById(R.id.tv_up)).setText("上按键： 发送状态...  步长; 03");
 					mConnectedThread.write(tt);
 				}else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.UP_KEY_UP);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.UP_KEY_UP);tt[i*2+1] = (byte)(' ');
+                    }
+
 					((TextView)findViewById(R.id.tv_up)).setText("上按键： 停止状态...  步长; 03");
 					mConnectedThread.write(tt);
 				}
@@ -278,17 +319,21 @@ public class MainActivity extends Activity {
 			@Override
 			public boolean onTouch(View view, MotionEvent motionEvent) {
 				if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.LEFT_KEY_DOWN);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.LEFT_KEY_DOWN);tt[i*2+1] = (byte)(' ');
+                    }
+
 					((TextView)findViewById(R.id.tv_left)).setText("左按键： 发送状态...  步长; 03");
 					mConnectedThread.write(tt);
 				}else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.LEFT_KEY_UP);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.LEFT_KEY_UP);tt[i*2+1] = (byte)(' ');
+                    }
+
 					((TextView)findViewById(R.id.tv_left)).setText("左按键： 停止状态...  步长; 03");
 					mConnectedThread.write(tt);
 				}
@@ -303,17 +348,21 @@ public class MainActivity extends Activity {
 			@Override
 			public boolean onTouch(View view, MotionEvent motionEvent) {
 				if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.RIGHT_KEY_DOWN);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.RIGHT_KEY_DOWN);tt[i*2+1] = (byte)(' ');
+                    }
+
 					((TextView)findViewById(R.id.tv_right)).setText("右按键： 发送状态...  步长; 03");
 					mConnectedThread.write(tt);
 				}else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
-					byte[] tt = new byte[30];
-					for (int i = 0; i < 10; i++){
-						tt[i*3] = (byte)(Parameter.RIGUT_KEY_UP);tt[i*3+1] = (byte)(' ');tt[i*3+2] = (byte)(' ');
-					}
+
+                    byte[] tt = new byte[2*sendNum];
+                    for (int i = 0; i < sendNum; i++){
+                        tt[i*2] = (byte)(Parameter.RIGUT_KEY_UP);tt[i*2+1] = (byte)(' ');
+                    }
+
 					((TextView)findViewById(R.id.tv_right)).setText("右按键： 停止状态...  步长; 03");
 					mConnectedThread.write(tt);
 				}

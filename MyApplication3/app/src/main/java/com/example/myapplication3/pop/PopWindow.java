@@ -16,6 +16,7 @@ import com.example.myapplication3.AllKeyActivity;
 import com.example.myapplication3.DeviceListActivity;
 import com.example.myapplication3.MainActivity;
 import com.example.myapplication3.SlideActivity;
+import com.example.myapplication3.StepActivity;
 import com.example.myapplication3.broadcast.Parameter;
 
 import net.flyget.bluetoothhelper.R;
@@ -85,6 +86,16 @@ public class PopWindow extends PopupWindow {
             @Override
             public void onClick(View arg0) {
                 context.startActivity(new Intent(conentView.getContext(), AllKeyActivity.class));
+                PopWindow.this.dismiss();
+            }
+        });
+
+        //setStep界面
+        conentView.findViewById(R.id.step).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                context.startActivity(new Intent(conentView.getContext(), StepActivity.class));
                 PopWindow.this.dismiss();
             }
         });

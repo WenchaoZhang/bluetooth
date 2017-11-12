@@ -25,6 +25,25 @@ public class Parameter {
     public static final byte HOLDER_ON = (byte)'C';
     public static final byte HOLDER_OFF = (byte)'D';
 
+    //设置步长
+    public  static Boolean isStepChange = false;
+    public static byte STEP = (byte)'E';
+
+    public static final byte STEP1 = (byte)'E';
+    public static final byte STEP2 = (byte)'F';
+    public static final byte STEP3 = (byte)'G';
+    public static final byte STEP4 = (byte)'H';
+
+    //设置slider的舵机
+    public static final String SLIDER0 = "I";
+    public static final String SLIDER1 = "J";
+    public static final String SLIDER2 = "K";
+    public static final String SLIDER3 = "L";
+    public static final String SLIDER4 = "M";
+    public static final String SLIDER5 = "N";
+    public static final String SLIDER6 = "0";
+
+
     //key status
     public static final byte UP_KEY_UP = (byte)'a';
     public static final byte UP_KEY_DOWN = (byte)'b';
@@ -50,6 +69,11 @@ public class Parameter {
     public static final byte FIVEL_KEY_DOWN = (byte)'v';
     public static final byte FIVER_KEY_UP = (byte)'w';
     public static final byte FIVER_KEY_DOWN = (byte)'x';
+
+    //滑块数据及判断
+    public static Boolean isSliderChange = false;
+    public static String whichSlider = "0";
+    public static int sliderValue = 0;
 
     //暂停状态
     public static Boolean isPause = false;

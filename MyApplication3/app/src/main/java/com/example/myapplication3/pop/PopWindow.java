@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.myapplication3.AboutActivity;
 import com.example.myapplication3.AllKeyActivity;
+import com.example.myapplication3.CmdActivity;
 import com.example.myapplication3.DeviceListActivity;
 import com.example.myapplication3.MainActivity;
 import com.example.myapplication3.SlideActivity;
@@ -111,12 +112,11 @@ public class PopWindow extends PopupWindow {
         });
 
         //设置
-        conentView.findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
+        conentView.findViewById(R.id.cmd).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                context.sendBroadcast(new Intent("com.example.broadcast.POP_BROADCAST"));
-                Parameter.pop = Parameter.SETTING;
+                context.startActivity(new Intent(conentView.getContext(), CmdActivity.class));
                 PopWindow.this.dismiss();
             }
         });

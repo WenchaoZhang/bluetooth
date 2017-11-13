@@ -48,10 +48,12 @@
 
         <activity android:name="com.example.myapplication3.SlideActivity" />
         <activity android:name="com.example.myapplication3.AllKeyActivity" />
-        <activity android:name="com.example.myapplication3.StepActivity"
+        <activity
+            android:name="com.example.myapplication3.StepActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="  Set the step length"
-            android:theme="@android:style/Theme.Holo.Light.Dialog"></activity>
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
+        <activity android:name="com.example.myapplication3.CmdActivity"></activity>
     </application>
 
 </manifest>

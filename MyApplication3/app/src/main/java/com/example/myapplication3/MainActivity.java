@@ -7,8 +7,6 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,8 +18,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -63,6 +59,13 @@ public class MainActivity extends Activity {
 	private PopBroadcastReceiver popBroadcastReceiver = new PopBroadcastReceiver(){
 		@Override
 		public void onReceive(Context context, Intent intent) {
+
+			if (Parameter.isSendPress) {
+				Parameter.isSendPress = false;
+				String tmps = " " + Parameter.sendString + " ";
+				byte[] tt = tmps.getBytes();
+				mConnectedThread.write(tt);
+			}
 
 			if (Parameter.isStepChange) {
 				Parameter.isStepChange = false;

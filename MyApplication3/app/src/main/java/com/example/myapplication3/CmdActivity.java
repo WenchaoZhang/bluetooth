@@ -1,13 +1,15 @@
 package com.example.myapplication3;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import com.example.myapplication3.broadcast.Parameter;
 
 import net.flyget.bluetoothhelper.R;
 
@@ -41,11 +43,13 @@ public class CmdActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.send:
-                Toast.makeText(CmdActivity.this,"ddd",Toast.LENGTH_SHORT).show();
                 if (!editText.getText().toString().isEmpty()) {
                     String tmp ="send: " + editText.getText().toString();
-                    list.add(tmp);
+                    list.add(0,tmp);
                     adapter.notifyDataSetChanged();
+                    Parameter.sendString = Parameter.SEND + " " + editText.getText().toString();
+                    Parameter.isSendPress = true;
+                    sendBroadcast(new Intent("com.example.broadcast.POP_BROADCAST"));
                 }
                 break;
             default:

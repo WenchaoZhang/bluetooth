@@ -43,6 +43,10 @@ public class Parameter {
     public static final String SLIDER5 = "N";
     public static final String SLIDER6 = "0";
 
+    //明亮航界面的send按钮是否按下
+    public static Boolean isSendPress = false;
+    public static String sendString = "";
+    public static final String SEND = "P";
 
     //key status
     public static final byte UP_KEY_UP = (byte)'a';

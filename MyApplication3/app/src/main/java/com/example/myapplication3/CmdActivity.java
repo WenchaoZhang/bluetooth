@@ -31,7 +31,7 @@ public class CmdActivity extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_cmd);
 
         editText = (EditText) findViewById(R.id.cmd_edit);
-        sendBtn = (Button) findViewById(R.id.send) ;
+        sendBtn = (Button) findViewById(R.id.send);
         sendBtn.setOnClickListener(this);
 
         listView = (ListView) findViewById(R.id.commen_list_view);

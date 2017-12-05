@@ -1,6 +1,8 @@
 package com.example.myapplication3;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplication3.broadcast.Parameter;
+import com.example.myapplication3.broadcast.SetBroadcastReceiver;
 import com.example.myapplication3.pop.PopWindow;
 
 import net.flyget.bluetoothhelper.R;
@@ -17,11 +20,21 @@ public class AllKeyActivity extends AppCompatActivity {
 
     Button mHomeBtn,keyUp,keyDown,keyLeft,keyRight,keyFront,keyBack,threeLBtn,threeRBtn
             ,fourRBtn,fourLBtn,fiveLBtn,fiveRBtn,holderBtn,cupBtn;
+    TextView mTextView;
+
+    private SetBroadcastReceiver setBroadcastReceiver = new SetBroadcastReceiver(){
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mTextView.setText(Parameter.RECEIVE);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_key);
+
+        mTextView = (TextView) findViewById(R.id.mTextView);
 
         //小房子按键
         mHomeBtn = (Button) findViewById(R.id.btn_title_right);
@@ -311,6 +324,22 @@ public class AllKeyActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mTextView.setText(Parameter.RECEIVE);
+        IntentFilter filter = new IntentFilter("com.example.broadcast.SET_BROADCAST");
+        registerReceiver(setBroadcastReceiver, filter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (setBroadcastReceiver != null) {
+            unregisterReceiver(setBroadcastReceiver);
+        }
     }
 
     @Override

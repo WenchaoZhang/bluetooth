@@ -46,6 +46,11 @@
             android:enabled="true"
             android:exported="true" />
 
+        <receiver
+            android:name="com.example.myapplication3.broadcast.SetBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"/>
+
         <activity android:name="com.example.myapplication3.SlideActivity" />
         <activity android:name="com.example.myapplication3.AllKeyActivity" />
         <activity

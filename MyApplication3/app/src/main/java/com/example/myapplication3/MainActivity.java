@@ -438,6 +438,8 @@ public class MainActivity extends Activity {
 						}
 						Toast.makeText(MainActivity.this, buf.toString(), Toast.LENGTH_SHORT).show();
 						mTextView.setText(buf.toString());
+						Parameter.RECEIVE = buf.toString();
+						sendBroadcast(new Intent("com.example.broadcast.SET_BROADCAST"));
 						mBuffer.clear();
 					}
 					break;

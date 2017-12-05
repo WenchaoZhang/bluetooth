@@ -41,12 +41,17 @@ public class Parameter {
     public static final String SLIDER3 = "L";
     public static final String SLIDER4 = "M";
     public static final String SLIDER5 = "N";
-    public static final String SLIDER6 = "0";
+    public static final String SLIDER6 = "O";
 
-    //明亮航界面的send按钮是否按下
+    //CMD界面的send按钮是否按下
     public static Boolean isSendPress = false;
     public static String sendString = "";
     public static final String SEND = "P";
+
+    //接收蓝牙数据
+
+    public static String RECEIVE = "";
+
 
     //key status
     public static final byte UP_KEY_UP = (byte)'a';

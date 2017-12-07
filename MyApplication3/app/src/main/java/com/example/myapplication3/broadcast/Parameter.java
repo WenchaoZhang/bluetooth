@@ -48,6 +48,15 @@ public class Parameter {
     public static String sendString = "";
     public static final String SEND = "P";
 
+    //判断进入需要复位的界面
+    public static Boolean isReset = false;
+    public static byte RESET = (byte)0;
+    public static final byte START_RESET = (byte)'Q';
+    public static final byte END_RESET = (byte)'R';
+
+    //接收标志
+    public static final byte RECEIVE_END = (byte)'T';
+    public static final byte RECEIVE_START = (byte)'S';
     //接收蓝牙数据
 
     public static String RECEIVE = "";

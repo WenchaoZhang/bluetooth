@@ -67,6 +67,14 @@ public class MainActivity extends Activity {
 				mConnectedThread.write(tt);
 			}
 
+			if (Parameter.isReset) {
+				Parameter.isReset = false;
+				byte[] tt = new byte[2];
+				tt[0] = Parameter.RESET;
+				tt[1] = (byte)' ';
+				mConnectedThread.write(tt);
+			}
+
 			if (Parameter.isStepChange) {
 				Parameter.isStepChange = false;
 				byte[] tt = new byte[2*sendNum];
@@ -591,7 +599,7 @@ public class MainActivity extends Activity {
 			Log.i(TAG, "BEGIN mConnectedThread");
 			byte[] buffer = new byte[256];
 			int bytes;
-
+			Boolean flag1 = false;
 			// Keep listening to the InputStream while connected
 			while (true) {
 				try {
@@ -599,10 +607,19 @@ public class MainActivity extends Activity {
 					bytes = mmInStream.read(buffer);
 					synchronized (mBuffer) {
 						for (int i = 0; i < bytes; i++) {
-							mBuffer.add(buffer[i] & 0xFF);
+
+							if (buffer[i] == (byte)Parameter.RECEIVE_START) {mBuffer.clear(); flag1 = true; continue;}
+
+							if (flag1) {mBuffer.add(buffer[i] & 0xFF);}
+
+							if (buffer[i] == (byte)Parameter.RECEIVE_END && flag1 && mBuffer.size() > 1) {
+								flag1 = false;
+								mHandler.sendEmptyMessage(MSG_NEW_DATA);
+								mBuffer.remove(mBuffer.size() - 1);
+							}
 						}
 					}
-					mHandler.sendEmptyMessage(MSG_NEW_DATA);
+//					mHandler.sendEmptyMessage(MSG_NEW_DATA);
 				} catch (IOException e) {
 					Log.e(TAG, "disconnected", e);
 					break;

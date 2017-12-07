@@ -332,6 +332,7 @@ public class AllKeyActivity extends AppCompatActivity {
         mTextView.setText(Parameter.RECEIVE);
         IntentFilter filter = new IntentFilter("com.example.broadcast.SET_BROADCAST");
         registerReceiver(setBroadcastReceiver, filter);
+
     }
 
     @Override
@@ -363,4 +364,5 @@ public class AllKeyActivity extends AppCompatActivity {
         super.onPause();
         finish();
     }
+
 }

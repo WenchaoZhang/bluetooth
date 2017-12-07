@@ -56,4 +56,20 @@ public class CmdActivity extends AppCompatActivity implements View.OnClickListen
                 break;
         }
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Parameter.isReset = true;
+        Parameter.RESET = Parameter.START_RESET;
+        sendBroadcast(new Intent("com.example.broadcast.POP_BROADCAST"));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Parameter.isReset = true;
+        Parameter.RESET = Parameter.END_RESET;
+        sendBroadcast(new Intent("com.example.broadcast.POP_BROADCAST"));
+    }
 }

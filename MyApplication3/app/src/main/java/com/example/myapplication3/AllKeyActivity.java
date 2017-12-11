@@ -208,12 +208,12 @@ public class AllKeyActivity extends AppCompatActivity {
                     Parameter.isGetNewDate = true;
                     Parameter.newDate = Parameter.DOWN_KEY_DOWN;
                     sendBroadcast(new Intent("com.example.broadcast.POP_BROADCAST"));
-                    ((TextView)findViewById(R.id.tv_down)).setText("下按键： 发送状态...  步长; 03");
+                    ((TextView)findViewById(R.id.tv_down)).setText("下按键： 发送状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
                 }else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
                     Parameter.isGetNewDate = true;
                     Parameter.newDate = Parameter.DOWN_KEY_UP;
                     sendBroadcast(new Intent("com.example.broadcast.POP_BROADCAST"));
-                    ((TextView)findViewById(R.id.tv_down)).setText("下按键： 停止状态...  步长; 03");
+                    ((TextView)findViewById(R.id.tv_down)).setText("下按键： 停止状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
                 }
                 return false;
             }
@@ -229,12 +229,12 @@ public class AllKeyActivity extends AppCompatActivity {
                     Parameter.isGetNewDate = true;
                     Parameter.newDate = Parameter.UP_KEY_DOWN;
                     sendBroadcast(new Intent("com.example.broadcast.POP_BROADCAST"));
-                    ((TextView)findViewById(R.id.tv_up)).setText("上按键： 发送状态...  步长; 03");
+                    ((TextView)findViewById(R.id.tv_up)).setText("上按键： 发送状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
                 }else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
                     Parameter.isGetNewDate = true;
                     Parameter.newDate = Parameter.UP_KEY_UP;
                     sendBroadcast(new Intent("com.example.broadcast.POP_BROADCAST"));
-                    ((TextView)findViewById(R.id.tv_up)).setText("上按键： 停止状态...  步长; 03");
+                    ((TextView)findViewById(R.id.tv_up)).setText("上按键： 停止状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
                 }
                 return false;
             }
@@ -250,12 +250,12 @@ public class AllKeyActivity extends AppCompatActivity {
                     Parameter.isGetNewDate = true;
                     Parameter.newDate = Parameter.LEFT_KEY_DOWN;
                     sendBroadcast(new Intent("com.example.broadcast.POP_BROADCAST"));
-                    ((TextView)findViewById(R.id.tv_left)).setText("左按键： 发送状态...  步长; 03");
+                    ((TextView)findViewById(R.id.tv_left)).setText("左按键： 发送状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
                 }else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
                     Parameter.isGetNewDate = true;
                     Parameter.newDate = Parameter.LEFT_KEY_UP;
                     sendBroadcast(new Intent("com.example.broadcast.POP_BROADCAST"));
-                    ((TextView)findViewById(R.id.tv_left)).setText("左按键： 停止状态...  步长; 03");
+                    ((TextView)findViewById(R.id.tv_left)).setText("左按键： 停止状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
                 }
                 return false;
             }
@@ -271,12 +271,12 @@ public class AllKeyActivity extends AppCompatActivity {
                     Parameter.isGetNewDate = true;
                     Parameter.newDate = Parameter.RIGHT_KEY_DOWN;
                     sendBroadcast(new Intent("com.example.broadcast.POP_BROADCAST"));
-                    ((TextView)findViewById(R.id.tv_right)).setText("右按键： 发送状态...  步长; 03");
+                    ((TextView)findViewById(R.id.tv_right)).setText("右按键： 发送状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
                 }else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
                     Parameter.isGetNewDate = true;
                     Parameter.newDate = Parameter.RIGUT_KEY_UP;
                     sendBroadcast(new Intent("com.example.broadcast.POP_BROADCAST"));
-                    ((TextView)findViewById(R.id.tv_right)).setText("右按键： 停止状态...  步长; 03");
+                    ((TextView)findViewById(R.id.tv_right)).setText("右按键： 停止状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
                 }
                 return false;
             }

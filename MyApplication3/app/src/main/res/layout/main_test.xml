@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="17dp"
-            android:text="左按键： 停止状态...  步长; 03 "/>
+            android:text="左按键： 停止状态...  步长:  01"/>
         <TextView
             android:id="@+id/tv_right"
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="17dp"
-            android:text="右按键： 停止状态...  步长; 03 "/>
+            android:text="右按键： 停止状态...  步长:  01"/>
         <TextView
             android:id="@+id/tv_up"
             android:layout_width="match_parent"
@@ -43,7 +43,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="17dp"
-            android:text="上按键： 停止状态...  步长; 03 "/>
+            android:text="上按键： 停止状态...  步长:  01"/>
         <TextView
             android:id="@+id/tv_down"
             android:layout_width="match_parent"
@@ -51,7 +51,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="17dp"
-            android:text="下按键： 停止状态...  步长; 03 "/>
+            android:text="下按键： 停止状态...  步长:  01"/>
 
     </LinearLayout>
 

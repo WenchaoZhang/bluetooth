@@ -82,6 +82,10 @@ public class MainActivity extends Activity {
 					tt[i*2] = (byte)(Parameter.STEP);tt[i*2+1] = (byte)(' ');
 				}
 				mConnectedThread.write(tt);
+				((TextView)findViewById(R.id.tv_down)).setText("下按键： 停止状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
+				((TextView)findViewById(R.id.tv_up)).setText("上按键： 停止状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
+				((TextView)findViewById(R.id.tv_left)).setText("左按键： 停止状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
+				((TextView)findViewById(R.id.tv_right)).setText("右按键： 停止状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
 			}
 
 			if (Parameter.isSliderChange) {
@@ -279,7 +283,7 @@ public class MainActivity extends Activity {
                     }
 
 					mConnectedThread.write(tt);
-					((TextView)findViewById(R.id.tv_down)).setText("下按键： 发送状态...  步长; 03");
+					((TextView)findViewById(R.id.tv_down)).setText("下按键： 发送状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
 				}else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
 
                     byte[] tt = new byte[2*sendNum];
@@ -287,7 +291,7 @@ public class MainActivity extends Activity {
                         tt[i*2] = (byte)(Parameter.DOWN_KEY_UP);tt[i*2+1] = (byte)(' ');
                     }
 
-					((TextView)findViewById(R.id.tv_down)).setText("下按键： 停止状态...  步长; 03");
+					((TextView)findViewById(R.id.tv_down)).setText("下按键： 停止状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
 					mConnectedThread.write(tt);
 				}
 				return false;
@@ -307,7 +311,7 @@ public class MainActivity extends Activity {
                         tt[i*2] = (byte)(Parameter.UP_KEY_DOWN);tt[i*2+1] = (byte)(' ');
                     }
 
-					((TextView)findViewById(R.id.tv_up)).setText("上按键： 发送状态...  步长; 03");
+					((TextView)findViewById(R.id.tv_up)).setText("上按键： 发送状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
 					mConnectedThread.write(tt);
 				}else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
 
@@ -316,7 +320,7 @@ public class MainActivity extends Activity {
                         tt[i*2] = (byte)(Parameter.UP_KEY_UP);tt[i*2+1] = (byte)(' ');
                     }
 
-					((TextView)findViewById(R.id.tv_up)).setText("上按键： 停止状态...  步长; 03");
+					((TextView)findViewById(R.id.tv_up)).setText("上按键： 停止状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
 					mConnectedThread.write(tt);
 				}
 				return false;
@@ -336,7 +340,7 @@ public class MainActivity extends Activity {
                         tt[i*2] = (byte)(Parameter.LEFT_KEY_DOWN);tt[i*2+1] = (byte)(' ');
                     }
 
-					((TextView)findViewById(R.id.tv_left)).setText("左按键： 发送状态...  步长; 03");
+					((TextView)findViewById(R.id.tv_left)).setText("左按键： 发送状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
 					mConnectedThread.write(tt);
 				}else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
 
@@ -345,7 +349,7 @@ public class MainActivity extends Activity {
                         tt[i*2] = (byte)(Parameter.LEFT_KEY_UP);tt[i*2+1] = (byte)(' ');
                     }
 
-					((TextView)findViewById(R.id.tv_left)).setText("左按键： 停止状态...  步长; 03");
+					((TextView)findViewById(R.id.tv_left)).setText("左按键： 停止状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
 					mConnectedThread.write(tt);
 				}
 				return false;
@@ -365,7 +369,7 @@ public class MainActivity extends Activity {
                         tt[i*2] = (byte)(Parameter.RIGHT_KEY_DOWN);tt[i*2+1] = (byte)(' ');
                     }
 
-					((TextView)findViewById(R.id.tv_right)).setText("右按键： 发送状态...  步长; 03");
+					((TextView)findViewById(R.id.tv_right)).setText("右按键： 发送状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
 					mConnectedThread.write(tt);
 				}else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
 
@@ -374,7 +378,7 @@ public class MainActivity extends Activity {
                         tt[i*2] = (byte)(Parameter.RIGUT_KEY_UP);tt[i*2+1] = (byte)(' ');
                     }
 
-					((TextView)findViewById(R.id.tv_right)).setText("右按键： 停止状态...  步长; 03");
+					((TextView)findViewById(R.id.tv_right)).setText("右按键： 停止状态...  步长:  0" + (int)((int)Parameter.STEP - 68));
 					mConnectedThread.write(tt);
 				}
 				return false;
@@ -444,7 +448,7 @@ public class MainActivity extends Activity {
 								buf.append((char) i);
 							}
 						}
-						Toast.makeText(MainActivity.this, buf.toString(), Toast.LENGTH_SHORT).show();
+//						Toast.makeText(MainActivity.this, buf.toString(), Toast.LENGTH_SHORT).show();
 						mTextView.setText(buf.toString());
 						Parameter.RECEIVE = buf.toString();
 						sendBroadcast(new Intent("com.example.broadcast.SET_BROADCAST"));

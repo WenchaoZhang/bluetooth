@@ -39,19 +39,19 @@ public class SlideActivity extends AppCompatActivity {
         seekR5 = (SeekBar) findViewById(R.id.rotation_5);
         seekHolder = (SeekBar) findViewById(R.id.holder1);
 
-        seekLR.setProgress(0);
+        seekLR.setProgress(1024);
         seekLR.setOnSeekBarChangeListener(seekListenerLR);
-        seekUpDown.setProgress(1);
+        seekUpDown.setProgress(1024);
         seekUpDown.setOnSeekBarChangeListener(seekListenerUP);
-        seekFB.setProgress(1);
+        seekFB.setProgress(1024);
         seekFB.setOnSeekBarChangeListener(seekListenerFB);
-        seekR3.setProgress(1);
+        seekR3.setProgress(1024);
         seekR3.setOnSeekBarChangeListener(seekListenerR3);
-        seekR4.setProgress(1);
+        seekR4.setProgress(1024);
         seekR4.setOnSeekBarChangeListener(seekListenerR4);
-        seekR5.setProgress(1);
+        seekR5.setProgress(1024);
         seekR5.setOnSeekBarChangeListener(seekListenerR5);
-        seekHolder.setProgress(1);
+        seekHolder.setProgress(1024);
         seekHolder.setOnSeekBarChangeListener(seekListenerH);
 
         tvLR = (TextView) findViewById(R.id.tv_left_right);
@@ -116,7 +116,7 @@ public class SlideActivity extends AppCompatActivity {
             Parameter.whichSlider = Parameter.SLIDER0;
             Parameter.sliderValue = progress;
 //            sendBroadcast(new Intent("com.example.broadcast.POP_BROADCAST"));
-            tvLR.setText("steer0值: " + progress);
+            tvLR.setText("steer0值: " + (progress+1024));
         }
     };
 
@@ -142,7 +142,7 @@ public class SlideActivity extends AppCompatActivity {
             Parameter.isSliderChange = true;
             Parameter.sliderValue = progress;
             Parameter.whichSlider = Parameter.SLIDER1;
-            tvUpDown.setText("steer1值: " + progress);
+            tvUpDown.setText("steer1值: " + (progress+1024));
         }
     };
 
@@ -168,7 +168,7 @@ public class SlideActivity extends AppCompatActivity {
             Parameter.isSliderChange = true;
             Parameter.sliderValue = progress;
             Parameter.whichSlider = Parameter.SLIDER2;
-            tvFB.setText("steer2值: " + progress);
+            tvFB.setText("steer2值: " + (progress+1024));
         }
     };
 
@@ -194,7 +194,7 @@ public class SlideActivity extends AppCompatActivity {
             Parameter.isSliderChange = true;
             Parameter.sliderValue = progress;
             Parameter.whichSlider = Parameter.SLIDER3;
-            tvR3.setText("steer3值: " + progress);
+            tvR3.setText("steer3值: " + (progress+1024));
         }
     };
 
@@ -220,7 +220,7 @@ public class SlideActivity extends AppCompatActivity {
             Parameter.isSliderChange = true;
             Parameter.sliderValue = progress;
             Parameter.whichSlider = Parameter.SLIDER4;
-            tvR4.setText("steer4值: " + progress);
+            tvR4.setText("steer4值: " + (progress+1024));
         }
     };
 
@@ -246,7 +246,7 @@ public class SlideActivity extends AppCompatActivity {
             Parameter.isSliderChange = true;
             Parameter.sliderValue = progress;
             Parameter.whichSlider = Parameter.SLIDER5;
-            tvR5.setText("steer5值: " + progress);
+            tvR5.setText("steer5值: " + (progress+1024));
         }
     };
 
@@ -272,7 +272,7 @@ public class SlideActivity extends AppCompatActivity {
             Parameter.isSliderChange = true;
             Parameter.sliderValue = progress;
             Parameter.whichSlider = Parameter.SLIDER6;
-            tvHolder.setText("steer6值: " + progress);
+            tvHolder.setText("steer6值: " + (progress+1024));
         }
     };
 

@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:textColor="#fff"
                 android:textSize="17dp"
-                android:text="steer0值：0000"/>
+                android:text="steer0值：2047"/>
             <TextView
                 android:id="@+id/tv_up_down"
                 android:layout_width="0dp"
@@ -47,7 +47,7 @@
                 android:gravity="center"
                 android:textColor="#fff"
                 android:textSize="17dp"
-                android:text="steer1值：0001"/>
+                android:text="steer1值：2047"/>
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +63,7 @@
             android:gravity="center"
             android:textColor="#fff"
             android:textSize="17dp"
-            android:text="steer2值：0001"/>
+            android:text="steer2值：2047"/>
         <TextView
             android:id="@+id/tv_rotation_3"
             android:layout_width="0dp"
@@ -73,7 +73,7 @@
             android:gravity="center"
             android:textColor="#fff"
             android:textSize="17dp"
-            android:text="steer3值：0001"/>
+            android:text="steer3值：2047"/>
         </LinearLayout>
 
         <LinearLayout
@@ -89,7 +89,7 @@
             android:gravity="center"
             android:textColor="#fff"
             android:textSize="17dp"
-            android:text="steer4值：0001"/>
+            android:text="steer4值：2047"/>
         <TextView
             android:id="@+id/tv_rotation_5"
             android:layout_width="0dp"
@@ -99,7 +99,7 @@
             android:gravity="center"
             android:textColor="#fff"
             android:textSize="17dp"
-            android:text="steer5值：0001"/>
+            android:text="steer5值：2047"/>
         </LinearLayout>
 
         <LinearLayout
@@ -115,7 +115,7 @@
             android:gravity="center"
             android:textColor="#fff"
             android:textSize="17dp"
-            android:text="steer6值：0001"/>
+            android:text="steer6值：2047"/>
             <Space
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -140,7 +140,7 @@
             android:layout_marginBottom="3dp"
             android:textColor="#fff"
             android:textSize="17dp"
-            android:text="0000 0001 0001 0001 0001 0001 0001"/>
+            android:text="1024 1024 1024 1024 1024 1024 1024"/>
 
     </LinearLayout>
 
